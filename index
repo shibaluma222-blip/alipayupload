@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Payment Upload</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom style for file input */
+        .file-input-label {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            border: 2px dashed #a0aec0; /* gray-400 */
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 2rem 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .file-input-label:hover {
+            border-color: #34d399; /* emerald-400 */
+            background-color: #f0fdf4; /* green-50 */
+        }
+        .file-input-label span {
+            display: block;
+            font-size: 0.875rem; /* text-sm */
+            color: #4b5563; /* gray-600 */
+        }
+        .file-input-label .icon {
+            font-size: 2rem;
+            color: #10b981; /* emerald-500 */
+        }
+        #file-upload {
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+            width: 0.1px;
+            height: 0.1px;
+        }
+        #file-name {
+            margin-top: 0.75rem;
+            font-size: 0.875rem; /* text-sm */
+            color: #374151; /* gray-700 */
+            font-weight: 500;
+        }
+    </style>
+    <!-- Load Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header Bar -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-4xl mx-auto py-4 px-5">
+            <h1 class="text-2xl font-bold text-emerald-600">BrandName Portal</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="min-h-[calc(100vh-150px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            
+            <!-- Form Card -->
+            <div class="bg-white p-8 rounded-2xl shadow-xl">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">
+                        Upload Payment Proof
+                    </h2>
+                    <p class="mt-2 text-sm text-gray-600">
+                        Please upload your Alipay receipt and invoice number.
+                    </p>
+                </div>
+
+                <!-- Upload Form -->
+                <form id="upload-form" class="mt-8 space-y-6">
+                    
+                    <!-- Invoice Number Input -->
+                    <div>
+                        <label for="invoice-number" class="block text-sm font-medium text-gray-700">
+                            Invoice Number
+                        </label>
+                        <div class="mt-1">
+                            <input id="invoice-number" name="invoice-number" type="text" required
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                                placeholder="e.g., INV-12345">
+                        </div>
+                    </div>
+
+                    <!-- File Upload Input -->
+                    <div>
+                        <label for="file-upload" class="block text-sm font-medium text-gray-700">
+                            Alipay Payment Proof
+                        </label>
+                        <div class="mt-1">
+                            <label for="file-upload" class="file-input-label">
+                                <!-- SVG Upload Icon -->
+                                <svg class="icon mx-auto h-12 w-12 text-emerald-500" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4V12a4 4 0 014-4h12l4 4h12a4 4 0 014 4zm-12 4v16m-8-8h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>Click to upload a file</span>
+                                <span class="text-xs text-gray-500">PNG, JPG, or PDF up to 10MB</span>
+                                <input id="file-upload" name="file-upload" type="file" accept="image/png, image/jpeg, application/pdf">
+                            </label>
+                            <div id="file-name" class="text-center">No file selected</div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div>
+                        <button id="submit-btn" type="submit"
+                            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-300">
+                            <!-- Loading Spinner (hidden by default) -->
+                            <svg id="loading-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span id="submit-btn-text">Submit Payment</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Message Area -->
+                <div id="message-box" class="mt-6 hidden">
+                    <div id="message-content" class="rounded-md p-4">
+                        <p class="text-sm font-medium"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, addDoc, collection, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+
+        const uploadForm = document.getElementById('upload-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const submitBtnText = document.getElementById('submit-btn-text');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        
+        const fileInput = document.getElementById('file-upload');
+        const fileNameDisplay = document.getElementById('file-name');
+        
+        const invoiceInput = document.getElementById('invoice-number');
+        
+        const messageBox = document.getElementById('message-box');
+        const messageContent = document.getElementById('message-content');
+
+        // --- Firebase Setup ---
+        let db, auth, storage;
+        let userId;
+
+        // ------------------------------------------------------------------
+        // IMPORTANT: PASTE YOUR FIREBASE CONFIG HERE
+        // ------------------------------------------------------------------
+        // Go to your Firebase Project Settings > General > Your Apps > Config
+        // Copy the 'firebaseConfig' object and paste it below.
+        
+        const firebaseConfig = 
+        { 
+        apiKey: "AIzaSyAJ4IbNWs8hhud6ig_kzGOClZzfu6xeJTc",
+        authDomain: "alipaypayment-cbad3.firebaseapp.com",
+        projectId: "alipaypayment-cbad3",
+        storageBucket: "alipaypayment-cbad3.firebasestorage.app",
+        messagingSenderId: "359633360633",
+        appId: "1:359633360633:web:b63ad69c8a7db52336b428",
+        measurementId: "G-MDC9L40KM6"
+        };       
+  
+        const appId = firebaseConfig.appId || (typeof __app_id !== 'undefined' ? __app_id : 'default-app-id');
+        // ------------------------------------------------------------------
+        
+        try {
+            // Initialize Firebase ONCE
+            const app = initializeApp(firebaseConfig);
+            
+            // Get the services we need
+            db = getFirestore(app);
+            auth = getAuth(app);
+            storage = getStorage(app);
+    
+            setLogLevel('Debug'); // Enable detailed logging for debugging
+
+            // Disable form until auth is ready
+            setFormEnabled(false, 'Connecting...');
+
+            // Sign in and get user ID
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    userId = user.uid;
+                    console.log("Authenticated User ID:", userId);
+                    // Enable the form once authenticated
+                    setFormEnabled(true, 'Submit Payment');
+                } else {
+                    console.log("User is signed out.");
+                    setFormEnabled(false, 'Authentication Failed');
+                }
+            });
+
+            // Handle Authentication (using token or anonymous)
+            (async () => {
+                try {
+                    // This logic handles both the canvas environment and your deployed site
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                } catch (error) {
+                    console.error("Authentication Error:", error);
+                    showMessage('error', 'Authentication failed. Please refresh.');
+                    setFormEnabled(false, 'Auth Error');
+                }
+            })();
+        } catch (e) {
+            console.error("Firebase initialization failed:", e);
+            showMessage('error', 'Could not connect to backend services.');
+            setFormEnabled(false, 'Connection Error');
+        }
+        // --- End Firebase Setup ---
+
+        // Display the selected file name
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = fileInput.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'No file selected';
+            }
+        });
+
+        // Handle form submission
+        uploadForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Stop the form from reloading the page
+
+            const file = fileInput.files[0];
+            const invoiceNumber = invoiceInput.value;
+
+            // Simple validation
+            if (!file || !invoiceNumber) {
+                showMessage('error', 'Please select a file and enter the invoice number.');
+                return;
+            }
+
+            // Check if auth is ready
+            if (!userId) {
+                showMessage('error', 'Not connected. Please wait a moment and try again.');
+                return;
+            }
+
+            // --- Show loading state ---
+            setLoading(true);
+
+            // ---
+            // ** REAL FIREBASE UPLOAD LOGIC **
+            //
+            try {
+                // --- Step 1: Upload File to Firebase Storage ---
+                // Create a unique file path: payment_proofs/appId/userId/timestamp_filename
+                const storagePath = `payment_proofs/${appId}/${userId}/${Date.now()}_${file.name}`;
+                const storageRef = ref(storage, storagePath);
+                
+                const uploadTask = await uploadBytes(storageRef, file);
+                const downloadURL = await getDownloadURL(uploadTask.ref);
+                
+                console.log('File successfully uploaded to Storage:', downloadURL);
+
+                // --- Step 2: Save Data to Firestore ---
+                // We use the "public" data path, as this data is likely for another user (employer) to see.
+                const collectionPath = `artifacts/${appId}/public/data/payment_uploads`;
+                
+                const docRef = await addDoc(collection(db, collectionPath), {
+                    invoiceNumber: invoiceNumber,
+                    paymentProofUrl: downloadURL,
+                    storagePath: storagePath,
+                    fileName: file.name,
+                    uploadedBy: userId,
+                    uploadedAt: serverTimestamp(), // Use the server's timestamp
+                    status: 'pending_review' // Add a status for the employer
+                });
+
+                console.log('Data saved to Firestore, document ID:', docRef.id);
+
+                // --- Step 3: Show Success ---
+                showMessage('success', 'Upload successful! Your employer has been notified.');
+                uploadForm.reset(); // Clear the form
+                fileNameDisplay.textContent = 'No file selected';
+
+            } catch (error) {
+                console.error('Firebase Upload Error:', error);
+                showMessage('error', 'An error occurred during upload. Please try again.');
+            } finally {
+                setLoading(false);
+            }
+            //
+            // --- End of Firebase logic ---
+            // ---
+            
+        });
+
+        function setLoading(isLoading) {
+            if (isLoading) {
+                submitBtn.disabled = true;
+                submitBtnText.textContent = 'Uploading...';
+                loadingSpinner.classList.remove('hidden');
+            } else {
+                submitBtn.disabled = false;
+                submitBtnText.textContent = 'Submit Payment';
+                loadingSpinner.classList.add('hidden');
+            }
+        }
+
+        // Helper function to enable/disable the entire form
+        function setFormEnabled(enabled, buttonText) {
+            submitBtn.disabled = !enabled;
+            invoiceInput.disabled = !enabled;
+            fileInput.disabled = !enabled;
+
+            if (buttonText) {
+                submitBtnText.textContent = buttonText;
+            }
+            
+            // Show/hide spinner if connecting
+            if (!enabled && buttonText === 'Connecting...') {
+                loadingSpinner.classList.remove('hidden');
+            } else {
+                loadingSpinner.classList.add('hidden');
+            }
+        }
+
+        function showMessage(type, text) {
+            const contentP = messageContent.querySelector('p');
+            
+            // Clear old styles
+            messageContent.classList.remove('bg-red-100', 'bg-green-100');
+            contentP.classList.remove('text-red-700', 'text-green-700');
+
+            if (type === 'success') {
+                messageContent.classList.add('bg-green-100');
+                contentP.classList.add('text-green-700');
+            } else {
+                messageContent.classList.add('bg-red-100');
+                contentP.classList.add('text-red-700');
+            }
+            
+            contentP.textContent = text;
+            messageBox.classList.remove('hidden');
+        }
+
+    </script>
+</body>
+</html>
