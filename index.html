@@ -3,136 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 標題已更新 -->
     <title>Chessa Jewelry - Payment Upload</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom font */
-        body {
-            font-family: 'Inter', sans-serif;
+        body { font-family: 'Inter', sans-serif; }
+        .file-input-label { display: block; position: relative; cursor: pointer; border: 2px dashed #a0aec0; border-radius: 0.5rem; padding: 2rem 1rem; text-align: center; transition: all 0.3s ease; }
+        .file-input-label:hover { border-color: #F6BE33; background-color: #fefce8; }
+        .file-input-label span { display: block; font-size: 0.875rem; color: #4b5563; }
+        .file-input-label .icon { font-size: 2rem; color: #2A7749; }
+        #file-upload { opacity: 0; position: absolute; z-index: -1; width: 0.1px; height: 0.1px; }
+        #file-name { margin-top: 0.75rem; font-size: 0.875rem; color: #374151; font-weight: 500; }
+        /* 針對 number input 隱藏箭咀 */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
         }
-        /* Custom style for file input */
-        .file-input-label {
-            display: block;
-            position: relative;
-            cursor: pointer;
-            border: 2px dashed #a0aec0; /* gray-400 */
-            border-radius: 0.5rem; /* rounded-lg */
-            padding: 2rem 1rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        /* 顏色已根據色板更新 */
-        .file-input-label:hover {
-            border-color: #F6BE33; /* Palette Gold */
-            background-color: #fefce8; /* yellow-50 */
-        }
-        .file-input-label span {
-            display: block;
-            font-size: 0.875rem; /* text-sm */
-            color: #4b5563; /* gray-600 */
-        }
-        .file-input-label .icon {
-            font-size: 2rem;
-            /* 顏色已根據色板更新 */
-            color: #2A7749; /* Palette Green */
-        }
-        #file-upload {
-            opacity: 0;
-            position: absolute;
-            z-index: -1;
-            width: 0.1px;
-            height: 0.1px;
-        }
-        #file-name {
-            margin-top: 0.75rem;
-            font-size: 0.875rem; /* text-sm */
-            color: #374151; /* gray-700 */
-            font-weight: 500;
+        input[type=number] {
+          -moz-appearance: textfield;
         }
     </style>
-    <!-- Load Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<!-- Body layout 已更新為 flex，確保 footer 總係喺最底 -->
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <!-- Header Bar 已更新 (加入 Logo, 品牌名, 顏色) -->
     <header class="bg-white shadow-sm">
         <div class="max-w-4xl mx-auto py-4 px-5 flex items-center space-x-3">
-            <!-- 
-              ▼▼▼ Logo 位置 ▼▼▼
-              請將 "https://placehold.co/40x40" 換成你真正 logo 嘅路徑 
-              (e.g., "images/logo.png")
-            -->
-            <img src="logo.png" alt="Chessa Logo" class="h-20 w-20 rounded-full">
-            
-            <!-- 品牌名已根據 PDF 更新 並套用色板顏色 -->
+            <img src="logo.png" alt="Chessa Logo" class="h-10 w-10 rounded-full">
             <h1 class="text-2xl font-bold" style="color: #2A7749;">
                 CHESSA JEWELRY Portal
             </h1>
         </div>
     </header>
 
-    <!-- Main Content (已更新 flex-grow) -->
     <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
-            
-            <!-- Form Card -->
             <div class="bg-white p-8 rounded-2xl shadow-xl">
                 <div class="text-center">
                     <h2 class="text-3xl font-bold tracking-tight text-gray-900">
                         Upload Payment Proof
                     </h2>
                     <p class="mt-2 text-sm text-gray-600">
-                        Please upload your Alipay receipt and invoice number.
+                        Please fill in your details and upload the receipt.
                     </p>
                 </div>
 
-                <!-- Upload Form -->
                 <form id="upload-form" class="mt-8 space-y-6">
                     
-                    <!-- Invoice Number Input -->
+                    <!-- ▼▼▼ 新增欄位 (1) Customer Name (已加 Tagalog) ▼▼▼ -->
                     <div>
-                        <label for="invoice-number" class="block text-sm font-medium text-gray-700">
-                            Invoice Number
+                        <label for="customer-name" class="block text-sm font-medium text-gray-700">
+                            Customer Name (Pangalan ng Customer)
                         </label>
                         <div class="mt-1">
-                            <!-- Focus 顏色已更新 -->
-                            <input id="invoice-number" name="invoice-number" type="text" required
+                            <input id="customer-name" name="customer-name" type="text" required
                                 class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
-                                placeholder="e.g., INV-123456">
+                                placeholder="e.g., Chan Tai Man">
                         </div>
                     </div>
 
-                    <!-- File Upload Input -->
+                    <!-- ▼▼▼ 新增欄位 (2) Phone Number (已加 Tagalog) ▼▼▼ -->
+                    <div>
+                        <label for="phone-number" class="block text-sm font-medium text-gray-700">
+                            Phone Number (Numero ng Telepono)
+                        </label>
+                        <div class="mt-1">
+                            <input id="phone-number" name="phone-number" type="tel" required
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+                                placeholder="e.g., 91234567">
+                        </div>
+                    </div>
+
+                    <!-- (原有) Invoice Number (已加 Tagalog) -->
+                    <div>
+                        <label for="invoice-number" class="block text-sm font-medium text-gray-700">
+                            Invoice Number (Numero ng Invoice)
+                        </label>
+                        <div class="mt-1">
+                            <input id="invoice-number" name="invoice-number" type="text" required
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+                                placeholder="e.g., INV-12345">
+                        </div>
+                    </div>
+
+                    <!-- ▼▼▼ 新增欄位 (3) Payment Amount (已加 Tagalog) ▼▼▼ -->
+                    <div>
+                        <label for="payment-amount" class="block text-sm font-medium text-gray-700">
+                            Payment Amount (Halaga ng Bayad)
+                        </label>
+                        <div class="relative mt-1">
+                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                              <span class="text-gray-500 sm:text-sm">$</span>
+                            </div>
+                            <input id="payment-amount" name="payment-amount" type="number" step="0.01" required
+                                class="appearance-none block w-full px-3 py-2 pl-7 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+                                placeholder="e.g., 500.00">
+                        </div>
+                    </div>
+
+
+                    <!-- (原有) File Upload (已加 Tagalog) -->
                     <div>
                         <label for="file-upload" class="block text-sm font-medium text-gray-700">
-                            Alipay Payment Proof
+                            Attach Alipay Record (I-attach ang Resibo)
                         </label>
                         <div class="mt-1">
                             <label for="file-upload" class="file-input-label">
-                                <!-- SVG Upload Icon (顏色已喺 style tag 更新) -->
                                 <svg class="icon mx-auto h-12 w-12" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                     <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4V12a4 4 0 014-4h12l4 4h12a4 4 0 014 4zm-12 4v16m-8-8h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                                 <span>Click to upload a file</span>
                                 <span class="text-xs text-gray-500">PNG, JPG, or PDF up to 10MB</span>
-                                <input id="file-upload" name="file-upload" type="file" accept="image/png, image/jpeg, application/pdf">
+                                <input id="file-upload" name="file-upload" type="file" accept="image/png, image/jpeg, application/pdf" required>
                             </label>
                             <div id="file-name" class="text-center">No file selected</div>
                         </div>
                     </div>
 
-                    <!-- Submit Button (顏色已更新) -->
+                    <!-- Submit Button -->
                     <div>
                         <button id="submit-btn" type="submit"
                             class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-300 hover:opacity-90"
                             style="background-color: #2A7749;">
-                            <!-- Loading Spinner (hidden by default) -->
                             <svg id="loading-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -153,17 +147,13 @@
         </div>
     </main>
 
-    <!-- ▼▼▼ 全新 Footer (根據 PDF 資料加入) ▼▼▼ -->
+    <!-- Footer (Braches/Contact Info) -->
     <footer class="bg-gray-800 text-gray-300 py-10 mt-12">
         <div class="max-w-4xl mx-auto px-5 grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <!-- Column 1: Brand Info -->
             <div>
                 <h3 class="text-lg font-semibold text-white">CHESSA INTERNATIONAL LTD.</h3>
                 <p class="mt-2 text-sm">Jewelry Gold</p>
             </div>
-
-            <!-- Column 2: Branches -->
             <div>
                 <h3 class="text-lg font-semibold text-white">Branch Locations</h3>
                 <div class="mt-2 space-y-3 text-sm">
@@ -184,8 +174,6 @@
                     </p>
                 </div>
             </div>
-
-            <!-- Column 3: Important Notice -->
             <div>
                 <h3 class="text-lg font-semibold text-white">Important Notice</h3>
                 <ul class="mt-2 space-y-2 text-xs list-disc list-inside">
@@ -200,7 +188,6 @@
             © 2025 CHESSA INTERNATIONAL LTD. All rights reserved.
         </div>
     </footer>
-    <!-- ▲▲▲ 全新 Footer 完 ▲▲▲ -->
 
 
     <script type="module">
@@ -218,7 +205,11 @@
         const fileInput = document.getElementById('file-upload');
         const fileNameDisplay = document.getElementById('file-name');
         
+        // ▼▼▼ 攞晒所有 input 嘅 element ▼▼▼
+        const customerNameInput = document.getElementById('customer-name');
+        const phoneInput = document.getElementById('phone-number');
         const invoiceInput = document.getElementById('invoice-number');
+        const amountInput = document.getElementById('payment-amount');
         
         const messageBox = document.getElementById('message-box');
         const messageContent = document.getElementById('message-content');
@@ -226,12 +217,6 @@
         // --- Firebase Setup ---
         let db, auth, storage;
         let userId;
-
-        // ------------------------------------------------------------------
-        // IMPORTANT: PASTE YOUR FIREBASE CONFIG HERE
-        // ------------------------------------------------------------------
-        // Go to your Firebase Project Settings > General > Your Apps > Config
-        // Copy the 'firebaseConfig' object and paste it below.
         
         const firebaseConfig = 
         { 
@@ -244,30 +229,20 @@
         measurementId: "G-MDC9L40KM6"
         };       
   
-        // ▼▼▼ 已修正打錯字 'default-a pp-id' ▼▼▼
         const appId = firebaseConfig.appId || (typeof __app_id !== 'undefined' ? __app_id : 'default-app-id');
-        // ------------------------------------------------------------------
         
         try {
-            // Initialize Firebase ONCE
             const app = initializeApp(firebaseConfig);
-            
-            // Get the services we need
             db = getFirestore(app);
             auth = getAuth(app);
             storage = getStorage(app);
-    
-            setLogLevel('Debug'); // Enable detailed logging for debugging
-
-            // Disable form until auth is ready
+            setLogLevel('Debug');
             setFormEnabled(false, 'Connecting...');
 
-            // Sign in and get user ID
             onAuthStateChanged(auth, (user) => {
                 if (user) {
                     userId = user.uid;
                     console.log("Authenticated User ID:", userId);
-                    // Enable the form once authenticated
                     setFormEnabled(true, 'Submit Payment');
                 } else {
                     console.log("User is signed out.");
@@ -275,10 +250,8 @@
                 }
             });
 
-            // Handle Authentication (using token or anonymous)
             (async () => {
                 try {
-                    // This logic handles both the canvas environment and your deployed site
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                         await signInWithCustomToken(auth, __initial_auth_token);
                     } else {
@@ -306,63 +279,61 @@
             }
         });
 
-        // ▼▼▼ 完整嘅 Javascript code 已加返 ▼▼▼
-
         // Handle form submission
         uploadForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Stop the form from reloading the page
+            event.preventDefault(); 
 
+            // ▼▼▼ 攞晒所有新舊欄位嘅 value ▼▼▼
             const file = fileInput.files[0];
+            const customerName = customerNameInput.value;
+            const phoneNumber = phoneInput.value;
             const invoiceNumber = invoiceInput.value;
+            const paymentAmount = amountInput.value;
 
-            // Simple validation
-            if (!file || !invoiceNumber) {
-                showMessage('error', 'Please select a file and enter the invoice number.');
+
+            // ▼▼▼ Validation 已更新 ▼▼▼
+            if (!file || !invoiceNumber || !customerName || !phoneNumber || !paymentAmount) {
+                showMessage('error', 'Please fill in all fields and select a file.');
                 return;
             }
 
-            // Check if auth is ready
             if (!userId) {
                 showMessage('error', 'Not connected. Please wait a moment and try again.');
                 return;
             }
 
-            // --- Show loading state ---
             setLoading(true);
 
-            // ---
-            // ** REAL FIREBASE UPLOAD LOGIC **
-            //
             try {
-                // --- Step 1: Upload File to Firebase Storage ---
-                // Create a unique file path: payment_proofs/appId/userId/timestamp_filename
+                // Step 1: Upload File
                 const storagePath = `payment_proofs/${appId}/${userId}/${Date.now()}_${file.name}`;
                 const storageRef = ref(storage, storagePath);
-                
                 const uploadTask = await uploadBytes(storageRef, file);
                 const downloadURL = await getDownloadURL(uploadTask.ref);
                 
                 console.log('File successfully uploaded to Storage:', downloadURL);
 
-                // --- Step 2: Save Data to Firestore ---
-                // We use the "public" data path, as this data is likely for another user (employer) to see.
+                // ▼▼▼ Step 2: Save ALL data to Firestore (已更新) ▼▼▼
                 const collectionPath = `artifacts/${appId}/public/data/payment_uploads`;
                 
                 const docRef = await addDoc(collection(db, collectionPath), {
+                    customerName: customerName,
+                    phoneNumber: phoneNumber,
                     invoiceNumber: invoiceNumber,
+                    paymentAmount: paymentAmount,
                     paymentProofUrl: downloadURL,
                     storagePath: storagePath,
                     fileName: file.name,
                     uploadedBy: userId,
-                    uploadedAt: serverTimestamp(), // Use the server's timestamp
-                    status: 'pending_review' // Add a status for the employer
+                    uploadedAt: serverTimestamp(), 
+                    status: 'pending_review'
                 });
 
                 console.log('Data saved to Firestore, document ID:', docRef.id);
 
-                // --- Step 3: Show Success ---
-                showMessage('success', 'Upload successful! Chessa Jewelry will be notified.');
-                uploadForm.reset(); // Clear the form
+                // Step 3: Show Success
+                showMessage('success', 'Upload successful! Your employer has been notified.');
+                uploadForm.reset(); // reset() 會清空所有 form 欄位
                 fileNameDisplay.textContent = 'No file selected';
 
             } catch (error) {
@@ -371,10 +342,6 @@
             } finally {
                 setLoading(false);
             }
-            //
-            // --- End of Firebase logic ---
-            // ---
-            
         });
 
         function setLoading(isLoading) {
@@ -389,17 +356,19 @@
             }
         }
 
-        // Helper function to enable/disable the entire form
+        // ▼▼▼ setFormEnabled 已更新，會 disable 晒所有欄位 ▼▼▼
         function setFormEnabled(enabled, buttonText) {
             submitBtn.disabled = !enabled;
+            customerNameInput.disabled = !enabled;
+            phoneInput.disabled = !enabled;
             invoiceInput.disabled = !enabled;
+            amountInput.disabled = !enabled;
             fileInput.disabled = !enabled;
 
             if (buttonText) {
                 submitBtnText.textContent = buttonText;
             }
             
-            // Show/hide spinner if connecting
             if (!enabled && buttonText === 'Connecting...') {
                 loadingSpinner.classList.remove('hidden');
             } else {
@@ -410,7 +379,6 @@
         function showMessage(type, text) {
             const contentP = messageContent.querySelector('p');
             
-            // Clear old styles
             messageContent.classList.remove('bg-red-100', 'bg-green-100');
             contentP.classList.remove('text-red-700', 'text-green-700');
 
