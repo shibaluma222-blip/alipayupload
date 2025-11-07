@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice Payment Upload</title>
+    <!-- 標題已更新 -->
+    <title>Chessa Jewelry - Payment Upload</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -22,9 +23,10 @@
             text-align: center;
             transition: all 0.3s ease;
         }
+        /* 顏色已根據色板更新 */
         .file-input-label:hover {
-            border-color: #34d399; /* emerald-400 */
-            background-color: #f0fdf4; /* green-50 */
+            border-color: #F6BE33; /* Palette Gold */
+            background-color: #fefce8; /* yellow-50 */
         }
         .file-input-label span {
             display: block;
@@ -33,7 +35,8 @@
         }
         .file-input-label .icon {
             font-size: 2rem;
-            color: #10b981; /* emerald-500 */
+            /* 顏色已根據色板更新 */
+            color: #2A7749; /* Palette Green */
         }
         #file-upload {
             opacity: 0;
@@ -54,17 +57,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-50 text-gray-800">
+<!-- Body layout 已更新為 flex，確保 footer 總係喺最底 -->
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <!-- Header Bar -->
+    <!-- Header Bar 已更新 (加入 Logo, 品牌名, 顏色) -->
     <header class="bg-white shadow-sm">
-        <div class="max-w-4xl mx-auto py-4 px-5">
-            <h1 class="text-2xl font-bold text-emerald-600">BrandName Portal</h1>
+        <div class="max-w-4xl mx-auto py-4 px-5 flex items-center space-x-3">
+            <!-- 
+              ▼▼▼ Logo 位置 ▼▼▼
+              請將 "https://placehold.co/40x40" 換成你真正 logo 嘅路徑 
+              (e.g., "images/logo.png")
+            -->
+            <img src="logo.png" alt="Chessa Logo" class="h-10 w-10 rounded-full">
+            
+            <!-- 品牌名已根據 PDF 更新 並套用色板顏色 -->
+            <h1 class="text-2xl font-bold" style="color: #2A7749;">
+                CHESSA JEWELRY Portal
+            </h1>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="min-h-[calc(100vh-150px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <!-- Main Content (已更新 flex-grow) -->
+    <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
             
             <!-- Form Card -->
@@ -87,8 +101,9 @@
                             Invoice Number
                         </label>
                         <div class="mt-1">
+                            <!-- Focus 顏色已更新 -->
                             <input id="invoice-number" name="invoice-number" type="text" required
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
                                 placeholder="e.g., INV-12345">
                         </div>
                     </div>
@@ -100,8 +115,8 @@
                         </label>
                         <div class="mt-1">
                             <label for="file-upload" class="file-input-label">
-                                <!-- SVG Upload Icon -->
-                                <svg class="icon mx-auto h-12 w-12 text-emerald-500" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                <!-- SVG Upload Icon (顏色已喺 style tag 更新) -->
+                                <svg class="icon mx-auto h-12 w-12" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                     <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4V12a4 4 0 014-4h12l4 4h12a4 4 0 014 4zm-12 4v16m-8-8h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                                 <span>Click to upload a file</span>
@@ -112,10 +127,11 @@
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
+                    <!-- Submit Button (顏色已更新) -->
                     <div>
                         <button id="submit-btn" type="submit"
-                            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-300">
+                            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-300 hover:opacity-90"
+                            style="background-color: #2A7749;">
                             <!-- Loading Spinner (hidden by default) -->
                             <svg id="loading-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -136,6 +152,56 @@
             </div>
         </div>
     </main>
+
+    <!-- ▼▼▼ 全新 Footer (根據 PDF 資料加入) ▼▼▼ -->
+    <footer class="bg-gray-800 text-gray-300 py-10 mt-12">
+        <div class="max-w-4xl mx-auto px-5 grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Column 1: Brand Info -->
+            <div>
+                <h3 class="text-lg font-semibold text-white">CHESSA INTERNATIONAL LTD.</h3>
+                <p class="mt-2 text-sm">Jewelry Gold</p>
+            </div>
+
+            <!-- Column 2: Branches -->
+            <div>
+                <h3 class="text-lg font-semibold text-white">Branch Locations</h3>
+                <div class="mt-2 space-y-3 text-sm">
+                    <p>
+                        <strong>Tsuen Wan (Main):</strong><br>
+                        Shop 256 & 257, 2/F Lik Sang Plaza, Tsuen Wan<br>
+                        Tel: (852) 9381 9250
+                    </p>
+                    <p>
+                        <strong>Tsuen Wan Branch 1:</strong><br>
+                        Shop 281B, 2/F Lik Sang Plaza, 269 Castle Peak Road, Tsuen Wan, N.T.<br>
+                        Tel: (852) 9380 7396
+                    </p>
+                    <p>
+                        <strong>Central Branch:</strong><br>
+                        Shop 252, 2/F Worldwide Plaza, 19 Des Voeux Road, Central, H.K.<br>
+                        Tel: (852) 9384 2263
+                    </p>
+                </div>
+            </div>
+
+            <!-- Column 3: Important Notice -->
+            <div>
+                <h3 class="text-lg font-semibold text-white">Important Notice</h3>
+                <ul class="mt-2 space-y-2 text-xs list-disc list-inside">
+                    <li>Deposit receipts are non-transferable and can only be applied to the original invoice.</li>
+                    <li>Monthly deposit is required to keep your layaway active.</li>
+                    <li>Invoices without updates for 1 year will be deemed inactive. Deposited funds are non-refundable.</li>
+                    <li>Chessa International Ltd. reserves the right of final decision in case of disputes.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center text-xs text-gray-500 mt-10 border-t border-gray-700 pt-6">
+            © 2025 CHESSA INTERNATIONAL LTD. All rights reserved.
+        </div>
+    </footer>
+    <!-- ▲▲▲ 全新 Footer 完 ▲▲▲ -->
+
 
     <script type="module">
         // Import Firebase modules
@@ -178,7 +244,7 @@
         measurementId: "G-MDC9L40KM6"
         };       
   
-        const appId = firebaseConfig.appId || (typeof __app_id !== 'undefined' ? __app_id : 'default-app-id');
+        const appId = firebaseConfig.appId || (typeof __app_id !== 'undefined' ? __app_id : 'default-a pp-id');
         // ------------------------------------------------------------------
         
         try {
@@ -333,7 +399,9 @@
             // Show/hide spinner if connecting
             if (!enabled && buttonText === 'Connecting...') {
                 loadingSpinner.classList.remove('hidden');
-            } else {
+Next, update the `index (1).html` file (which you previously uploaded) with these changes. I'll add the logo placeholder, update the brand name and colors (using the `#2A7749` green and `#F6BE33` gold from your image), and add a new footer with all the branch and contact info from your PDF.
+
+Here is the complete updated file.            } else {
                 loadingSpinner.classList.add('hidden');
             }
         }
