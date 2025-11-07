@@ -68,7 +68,7 @@
               請將 "https://placehold.co/40x40" 換成你真正 logo 嘅路徑 
               (e.g., "images/logo.png")
             -->
-            <img src="logo.png" alt="Chessa Logo" class="h-10 w-10 rounded-full">
+            <img src="https://placehold.co/40x40/2A7749/FFFFFF?text=C" alt="Chessa Logo" class="h-10 w-10 rounded-full">
             
             <!-- 品牌名已根據 PDF 更新 並套用色板顏色 -->
             <h1 class="text-2xl font-bold" style="color: #2A7749;">
@@ -244,7 +244,8 @@
         measurementId: "G-MDC9L40KM6"
         };       
   
-        const appId = firebaseConfig.appId || (typeof __app_id !== 'undefined' ? __app_id : 'default-a pp-id');
+        // ▼▼▼ 已修正打錯字 'default-a pp-id' ▼▼▼
+        const appId = firebaseConfig.appId || (typeof __app_id !== 'undefined' ? __app_id : 'default-app-id');
         // ------------------------------------------------------------------
         
         try {
@@ -304,6 +305,8 @@
                 fileNameDisplay.textContent = 'No file selected';
             }
         });
+
+        // ▼▼▼ 完整嘅 Javascript code 已加返 ▼▼▼
 
         // Handle form submission
         uploadForm.addEventListener('submit', async (event) => {
@@ -399,9 +402,7 @@
             // Show/hide spinner if connecting
             if (!enabled && buttonText === 'Connecting...') {
                 loadingSpinner.classList.remove('hidden');
-Next, update the `index (1).html` file (which you previously uploaded) with these changes. I'll add the logo placeholder, update the brand name and colors (using the `#2A7749` green and `#F6BE33` gold from your image), and add a new footer with all the branch and contact info from your PDF.
-
-Here is the complete updated file.            } else {
+            } else {
                 loadingSpinner.classList.add('hidden');
             }
         }
